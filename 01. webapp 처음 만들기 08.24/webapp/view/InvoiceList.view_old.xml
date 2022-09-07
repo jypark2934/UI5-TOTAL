@@ -1,0 +1,64 @@
+<mvc:View
+   controllerName="sap.ui.demo.walkthrough.controller.InvoiceList"
+   xmlns="sap.m"
+   xmlns:mvc="sap.ui.core.mvc">
+   <List
+      id="invoiceList"
+      class="sapUiResponsiveMargin"
+      width="auto"
+      items="{path : 'invoice>/Invoices',
+              sorter : {
+				  path : 'ShipperName',
+              descending: false,
+				  group : true
+			     }
+            }"
+      >
+      <!-- "{invoice>/Invoices}" 
+            items="{path : 'invoice>/Invoices',
+              filters : [{path: 'ProductName', operator: 'Contains', value1: 'milk'},
+              {path: 'ProductName', operator: 'Contains', value1: 'salad'},
+              {path: 'ProductName', operator: 'Contains', value1: 'bread'}]
+              }"  이렇게 하면 list내에서 filter조건을 지정해 줄수 있음-->
+
+      <headerToolbar>
+         <Toolbar>
+            <Title text="Invoices"/>
+            <ToolbarSpacer/>
+            <SearchField width="50%" search=".onFilterInvoices"/>
+         </Toolbar>
+      </headerToolbar>
+      <items>
+         <ObjectListItem
+            title="{invoice>Quantity} x {invoice>ProductName}" 
+            number="{
+			parts: [{path: 'invoice>ExtendedPrice'}, {path: 'view>/currency'}],
+			type: 'sap.ui.model.type.Currency',
+			formatOptions: {
+				showMeasure: false
+			}
+		    }"
+		    numberUnit="{view>/currency}"
+          numberState="{= ${invoice>ExtendedPrice} > 50 ? 'Error' : 'Success' }"
+          type="Navigation"
+			 press="onPress"
+         >
+            <!-- Expression binding : {= ${프로퍼티바인딩} >(조건) ? '참' : '거짓' } 
+            < 는 &lt; & 는 &amp-->
+            <!-- /는 이름이 없는거 쓸때 Component.js의 oModel 사용
+            >는 이름있는거 사용"{i18n>homePageTitle}" 같은거  
+            보통은 "{view>/currency}" 해서 key를 찾아주는데
+            위에 "{invoice>Quantity} x {invoice>ProductName}" 이거는 / 가 안붙은 이유는 위에
+            items="{invoice>/Invoices}"의 배열로된 하위 속성 이기 때문-->
+            <firstStatus>
+					<ObjectStatus text="{
+						path: 'invoice>Status',
+						formatter: '.formatter1.statusText'
+                  
+					}"/>
+               <!--여기서 처음에적힌 formatter는 이전 formatter가 아닌 속성을 지정해주기 위한 formatter -->
+				</firstStatus>
+			</ObjectListItem>
+      </items>
+   </List>
+</mvc:View>

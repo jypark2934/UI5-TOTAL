@@ -1,0 +1,24 @@
+<mvc:View
+   controllerName="sap.ui.demo.walkthrough.controller.App"
+   xmlns="sap.m"
+   xmlns:mvc="sap.ui.core.mvc"
+   displayBlock="true">
+   <Shell>
+	<App class="myAppDemoWT" id="app"/>
+   </Shell>
+   <!-- App 안쪽으로 실제 화면전환이 이루어지는 곳 -->
+<!-- </Shell>
+   <Shell>
+   <App class="myAppDemoWT">
+      <pages>
+         <Page title="{i18n>homePageTitle}">
+            <content>
+                <mvc:XMLView viewName="sap.ui.demo.walkthrough.view.HelloPanel"/>             
+                <mvc:XMLView viewName="sap.ui.demo.walkthrough.view.InvoiceList"/>
+            </content>
+         </Page>
+      </pages>
+   </App>
+   </Shell> -->
+</mvc:View>
+

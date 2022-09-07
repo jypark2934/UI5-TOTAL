@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>SAPUI5 실습</title>
+    <script
+		id="sap-ui-bootstrap"
+		src="https://ui5.sap.com/resources/sap-ui-core.js"
+		data-sap-ui-theme="sap_fiori_3"
+		data-sap-ui-libs="sap.m"
+		data-sap-ui-compatVersion="edge"
+		data-sap-ui-async="true"
+		data-sap-ui-oninit="module:sap/ui/core/ComponentSupport"
+		data-sap-ui-resourceroots='{
+			"sap.ui.demo.walkthrough": "./" 
+		}'> 
+
+	</script>   <!-- 이 스크립트를 통해 이 프로그램은 UI5 framework 기반 프로그램이 되는거-->
+</head>
+<body class="sapUiBody" id="content">
+    <div data-sap-ui-component 
+    data-name="sap.ui.demo.walkthrough" 
+    data-id="container" 
+    data-settings='{"id" : "walkthrough"}'> <!-- index.js 의 내용-->
+	<!-- Component Container 가 생성되며 그 안에 화면구조가 생성됨-->
+    </div>
+</body>
+</html>
