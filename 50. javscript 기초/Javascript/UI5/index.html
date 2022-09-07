@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UT5-8">
+    <title>UI5 실습</title>
+    <!-- UI5 Bootstrapping -->
+    <script id = "sap-ui-boots"
+        src = "https://ui5.sap.com/resources/sap-ui-core.js"
+        data-sap-ui-libs = "sap.m"  
+        data-sap-ui-theme = "Sap_belize"
+        data-sap-ui-compatVersion="edge"
+        data-sap-ui-async = "false"
+        
+    >//여기에 내용을 넣는게 아님!!</script>
+
+    <script>
+        // sap.m.Input
+        // 메소드, 프로퍼티 명 Camel case firstAppleTree 
+        // 첫단어 다 소문자, 이후 단어하나씩 조합될떄마다 첫알파벳만 대문자
+
+        var oBtn = new sap.m.Button({text:"Hello World"})
+        // new <- js 명령어 : 객체를 생성
+        // js 객체가 가지는 프로퍼티 -> key : value
+        // text: "Hello World" 프로퍼티를 가진 sap.m.Button 을 생성
+        oBtn.placeAt("target");
+        //placeAt() 은 UI5 내장 메소드 - 특정 id를 가진 요소에 나 자신을 배치
+    </script>
+    <script>
+     // sap.ui.define() : UI5 Framework js code 표준양식
+     // sap.ui.define([사용할 라이브러리], function(){실제 코드}// 이 안에 모든 내용이 담김);
+     sap.ui.define(["sap/m/Button", "sap/m/Input"],  
+     //라이브러리 경로를 문자열로 등록, 경로는(.)대신(/)로표현
+     // [] <- js 배열 array (=wa(workarea))
+     
+        function(Button){
+        // 실제 모듈이 동작할때 등록한 라이브러리가 순차적으로 파라미터로 들어옴
+            var oBtn2 = new Button({text:"Hello2"});
+            // function(param1){ param1<- 내부에서 바로 사용 가능한 local 변수 }
+            // placeAt("target") -> 실제 메소드 코드 상 function(t){t <- "target"}
+            oBtn2.placeAt("target");
+        }
+     );
+    
+    </script>
+</head>
+<body class="sapUiBody">
+    <div id="target"></div>
+</body>
+
+</html>

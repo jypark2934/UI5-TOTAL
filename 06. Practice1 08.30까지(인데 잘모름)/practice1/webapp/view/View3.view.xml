@@ -1,0 +1,131 @@
+<mvc:View controllerName="sap.sync.practice1.controller.View3"
+	xmlns:mvc="sap.ui.core.mvc" displayBlock="true"
+	xmlns:core="sap.ui.core"
+	xmlns:layout="sap.ui.layout"
+	xmlns:f="sap.f" xmlns:ui="sap.ui.table"
+	xmlns="sap.m">
+	<f:DynamicPage id="dynamicPageId" headerExpanded="{/headerExpanded}" toggleHeaderOnTitleClick="{/titleClickable}">
+		<!-- DynamicPage Title -->
+		<f:title>
+			<f:DynamicPageTitle>
+				<f:heading>
+					<Title text="Header Title"/>
+				</f:heading>
+				<f:breadcrumbs>
+					<Breadcrumbs>
+						<Link text="Home" press="onNavBack"/>
+					</Breadcrumbs>
+				</f:breadcrumbs>
+				<f:actions>
+					<Button text="Edit" type="Emphasized" press="onEdit" 
+					visible="{= !${viewModel>/bDeleteMode} &amp;&amp; !${viewModel>/bEditMode}}" />
+					<Button text="Delete" press="onDelete" 
+					visible="{= !${viewModel>/bDeleteMode} &amp;&amp; !${viewModel>/bEditMode}}" />
+					<Button text="Cancel" press="onCancel" 
+					visible="{= ${viewModel>/bDeleteMode} || ${viewModel>/bEditMode}}"/>
+					<!-- 삭제모드 or 수정모드에서 취소버튼이 보이도록 -->
+				</f:actions>
+			</f:DynamicPageTitle>
+		</f:title>
+		<!-- DynamicPage Header -->
+		<f:header>
+			<f:DynamicPageHeader pinnable="true">
+				<layout:HorizontalLayout allowWrapping="true">
+					<layout:VerticalLayout class="sapUiMediumMarginEnd">
+						<ObjectAttribute title="Location" text="Warehouse A"/>
+						<ObjectAttribute title="Halway" text="23L"/>
+						<ObjectAttribute title="Rack" text="34"/>
+					</layout:VerticalLayout>
+
+					<layout:VerticalLayout>
+						<ObjectAttribute title="Availability"/>
+						<ObjectStatus text="In Stock" state="Success" />
+					</layout:VerticalLayout>
+				</layout:HorizontalLayout>
+			</f:DynamicPageHeader>
+		</f:header>
+		<f:content>
+		<VBox visible="false">		
+			<Table id="idProductsTable" mode="None" delete="onDeleteButton" sticky="HeaderToolbar,ColumnHeaders" inset="false" items="{
+							path: 'viewModel>/products',
+							sorter: {
+								path: 'name'
+							}
+						}" class="sapFDynamicPageAlignContent" width="auto">
+				<headerToolbar>
+					<Toolbar>
+						<Title text="Products" level="H2"/>
+					</Toolbar>
+				</headerToolbar>
+				<columns>
+					<Column width="12em">
+						<Text text="Product" />
+					</Column>
+					<Column minScreenWidth="Tablet" demandPopin="true">
+						<Text text="Price" />
+					</Column>
+					<Column minScreenWidth="Tablet" demandPopin="true" hAlign="End">
+						<Text text="Quantity" />
+					</Column>
+				</columns>
+				<items>
+					<ColumnListItem type="Navigation" press="onPressList">
+					<!-- row의 속성 (list)-->
+						<cells>
+							<VBox>
+								<ObjectIdentifier title="{viewModel>name}" visible="{= !${viewModel>/bEditMode}}" />
+								<Input value="{viewModel>name}" visible="{viewModel>/bEditMode}" />
+							</VBox>
+							<Text text="{viewModel>price}" />
+							<Text text="{viewModel>quantity}" />
+						</cells>
+					</ColumnListItem>
+				</items>
+			</Table>
+			</VBox>
+			<VBox>
+                <ui:Table
+                    rows="{viewModel>/products}"
+                    selectionMode="MultiToggle"
+                    visibleRowCount="7"
+                    paste="onPaste"
+                    ariaLabelledBy="title">
+                    <ui:extension>
+                        <OverflowToolbar style="Clear">
+                            <Title id="title" text="Products"/>
+                        </OverflowToolbar>
+                    </ui:extension>
+                    <ui:columns>
+                        <ui:Column width="11rem">
+                            <Label text="Product Name" />
+                            <ui:template>
+                                <Text text="{viewModel>name}" wrapping="false" />
+                            </ui:template>
+                        </ui:Column>
+						<ui:Column width="11rem">
+                            <Label text="Price" />
+                            <ui:template>
+                                <Text text="{viewModel>price}" wrapping="false" />
+                            </ui:template>
+                        </ui:Column>
+						<ui:Column width="11rem">
+                            <Label text="Quantity" />
+                            <ui:template>
+                                <Text text="{viewModel>quantity}" wrapping="false" />
+                            </ui:template>
+                        </ui:Column>
+                    </ui:columns>
+                </ui:Table>
+            </VBox>
+		</f:content>
+		<!-- DynamicPage Footer -->
+		<f:footer>
+			<OverflowToolbar>
+				<Button icon="sap-icon://message-popup" text="{/messagesLength}" type="Emphasized" press="onMessageButtonPress" visible="{= !!${/messagesLength}}"/>
+				<ToolbarSpacer/>
+				<Button type="Accept" text="Accept"/>
+				<Button type="Reject" text="Reject"/>
+			</OverflowToolbar>
+		</f:footer>
+	</f:DynamicPage>
+</mvc:View>

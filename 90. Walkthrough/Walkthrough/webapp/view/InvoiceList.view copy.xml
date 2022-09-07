@@ -1,0 +1,48 @@
+<mvc:View
+    controllerName="sap.ui.demo.walkthrough.controller.InvoiceList"
+    xmlns="sap.m"
+    xmlns:mvc="sap.ui.core.mvc">
+   <List
+      id="invoiceList"
+      class="sapUiResponsiveMargin"
+      width="auto"
+      items="{  path : 'invoice>/Invoices',
+                sorter : {
+                    path : 'ShipperName',
+                    descending: false,
+                    group : true
+                }
+              }" > <!-- -->
+      <headerToolbar>
+         <Toolbar>
+            <Title text="Invoices"/>
+            <ToolbarSpacer/>
+            <SearchField width="50%" search=".onFilterInvoices"/>
+         </Toolbar>
+      </headerToolbar>
+      <items>
+         <ObjectListItem
+            title="{invoice>Quantity} x {invoice>ProductName}"
+            number="{
+                parts: [{path: 'invoice>ExtendedPrice'}, {path: 'view>/currency'}],
+                type: 'sap.ui.model.type.Currency',
+                formatOptions: {
+                    showMeasure: true
+                }
+            }"
+            numberUnit="{view>/currency}"
+            numberState="{= ${invoice>ExtendedPrice} > 50 ? 'Error' : 'Success' }"
+            type="Navigation"
+			press="onPress"
+            >
+            <firstStatus>
+                <ObjectStatus text="{
+                    path: 'invoice>Status',
+                    formatter: '.formatter1.statusText'
+                }"/>
+            </firstStatus>
+        </ObjectListItem>
+        <!-- {= ${프로퍼티바인딩} >(조건) ? <참> : <거짓> }  < - &lt; & - &amp; -->
+      </items>
+   </List>
+</mvc:View>

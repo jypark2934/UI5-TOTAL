@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>자바스크립트 연습</title>
+</head>
+
+<body>
+    <h3>입력창</h3>
+    <hr>
+    <input type="text" id="input1"></input>
+    <input type="text" id="input3" placeholder="연산기호">
+    <input type="text" id="input2"></input>
+    <button id="button1" onclick=clickFunc()>버튼</button>
+    <br>
+    <br>
+    <input type="text" id="input4">
+    <button id="button2" onclick=calcGuguFunc()>구구단</button>
+
+    <script>
+        var sStr = '123',
+            iVar = 123,
+            sValue1,
+            sValue2,
+            sValue3,
+            sValueGugu;
+
+        var oInput1 = document.getElementById("input1"),
+            oInput2 = document.getElementById("input2");
+            oInput3 = document.getElementById("input3"),
+            oInput4 = document.getElementById("input4");
+
+        var calcGuguFunc = function(){
+            // 구구단 단수 입력창에 값이 입력 안되어있으면
+            // alert 로 입력값이 없다고 알려주는 로직을 추가
+
+
+            sValueGugu = oInput4.value;
+
+            if (sValueGugu) {
+                // for (시작값; 조건; 스탭)
+                for (var index = 1; index <= 9; index+=3) {
+                    var sGuguResult = sValueGugu * index;
+                    var sText = sValueGugu + " * " + index + " = " + sGuguResult;
+
+
+                    console.log(sText);
+                }
+            } else {
+                alert("'단' 수를 입력하세요!")
+            }
+        }
+
+        var clickFunc = function(){
+            sValue1 = oInput1.value; // ''  X undefined
+            sValue2 = oInput2.value;
+            sValue3 = oInput3.value;
+            var iResult;
+
+            // 조건문에서 거짓으로 인식하는 대상
+            // null undefined '' 0
+
+            // AND &&
+            // OR ||
+            if (sValue1 && sValue2 && sValue3) {
+                switch (sValue3) {
+                    case '+':
+                        iResult = parseInt(sValue1) + parseInt(sValue2);
+                        break;  // break 가 없으면 다음 case 조건을 검증시도
+                    case '-':
+                        iResult = parseInt(sValue1) - parseInt(sValue2);
+                        break;
+                    case '*':
+                        iResult = parseInt(sValue1) * parseInt(sValue2);
+                        break;
+                    case '/':
+                        if (sValue2 === '0') {
+                            iResult = "0으로 나눌 수 없습니다."
+                        } else {
+                            iResult = parseInt(sValue1) / parseInt(sValue2);
+                        }
+                        break;
+                }
+                alert(iResult);
+            } else {
+                alert("입력필드를 확인하세요!");
+                console.error('false');
+            }
+        };
+    </script>
+</body>
+
+</html>

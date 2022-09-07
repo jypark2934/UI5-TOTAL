@@ -1,0 +1,79 @@
+<mvc:View controllerName="sap.sync.practice1.controller.View1"
+    xmlns:mvc="sap.ui.core.mvc" displayBlock="true"
+	xmlns:core="sap.ui.core"
+    xmlns:layout="sap.ui.layout"
+    xmlns="sap.m">
+	<Page title="계산기">
+		<content>
+			<FlexBox visible="{= !${viewModel>/bSwitchOnOff}}">
+				<VBox width="20%" class="sapUiSmallMargin">
+					<Input id="input1" width="100%" editable="false"
+						value="{viewModel>/inputValue1}" />
+				</VBox>
+				<VBox width="10%" class="sapUiSmallMargin">
+					<Select width="100%"/>
+				</VBox>
+				<VBox width="20%" class="sapUiSmallMargin">
+					<Input id="input2" width="100%" value="{viewModel>/inputValue2}"/>
+				</VBox>
+				<VBox width="20%" class="sapUiSmallMargin">
+					<Button text="계산"
+						type="Emphasized"
+						press="onPress"/>
+				</VBox>
+			</FlexBox>
+			<FlexBox>
+				<VBox width="20%" class="sapUiSmallMargin">
+					<Input id="input3" width="100%"
+						editable="{viewModel>/bSwitchOnOff}"
+						value="{
+								path: 'viewModel>/inputValue1',
+								type: 'sap.ui.model.type.Integer',
+								formatOptions: {
+									maxIntegerDigits : 4
+								},
+								constraints: {
+									minimum : 0,
+									maximum : 1000
+								}
+							}" />
+				</VBox>
+				<VBox width="10%" class="sapUiSmallMargin">
+					<Select width="100%" 
+					items="{selList>/calc/operate}"
+					selectedKey="{viewModel>/sSelValue}">
+						<core:Item key="{selList>ope}" text="{selList>id}"/>
+					</Select>
+				</VBox>
+				<VBox width="20%" class="sapUiSmallMargin">
+					<Input id="input4" width="100%"
+						editable="{viewModel>/bSwitchOnOff}"
+						value="{
+								path: 'viewModel>/inputValue2',
+								type: 'sap.ui.model.type.Float',
+								formatOptions: {
+									minFractionDigits : 0,
+									decimals : 3,
+									preserveDecimals : false
+								},
+								decimals: 3
+							}"/>
+				</VBox>
+				<VBox width="20%" class="sapUiSmallMargin">
+					<Button text="계산"
+						enabled="{viewModel>/bSwitchOnOff}"
+						type="Emphasized"
+						press="onPress2"/>
+				</VBox>
+			</FlexBox>
+			<FlexBox>
+				<VBox class="sapUiSmallMargin">
+					<Switch state="{viewModel>/bSwitchOnOff}" change="onSwitchClick"/>
+					<Button text="다음 화면" press="onNavNext"/>
+					<Button text="View3로 이동" press="onNavNextView3"/>
+				</VBox>
+			</FlexBox>
+			<Text text="결과" class="sapUiSmallMargin"/>
+		</content>
+	</Page>
+</mvc:View>
